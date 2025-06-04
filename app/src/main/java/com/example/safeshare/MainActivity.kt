@@ -51,7 +51,8 @@ fun SafeSecureApp(modifier: Modifier = Modifier) {
         composable(Screen.Loader.name) {
             LoaderScreen(
                 toLoginScreen = { navController.navigateAndClearPrevious(Screen.Login.name) },
-                toMainScreen = { navController.navigateAndClearPrevious(Screen.MainScreen.name) }
+                toMainScreen = { navController.navigateAndClearPrevious(Screen.MainScreen.name) },
+                viewModel = hiltViewModel()
             )
         }
         composable(Screen.Login.name) {
