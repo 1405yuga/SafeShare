@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "794652040097",
+    "project_id": "safeshare-f2243",
+    "storage_bucket": "safeshare-f2243.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:794652040097:android:1fdf00547b726f33fd89e0",
+        "android_client_info": {
+          "package_name": "com.example.safeshare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKHEUCyTm8nTadIqsRpZuEFDC_yxQP68w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

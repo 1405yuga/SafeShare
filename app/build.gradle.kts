@@ -54,6 +54,10 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.firebase.auth)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -64,7 +68,7 @@ dependencies {
 
 //    material icons-------------------------------------
     implementation(libs.androidx.material.icons.extended)
-//  navigation----------------------------------------------
+//    navigation----------------------------------------------
     implementation(libs.androidx.navigation.compose)
 //    hilt----------------------------------------------------
     implementation("com.google.dagger:hilt-android:2.51.1")

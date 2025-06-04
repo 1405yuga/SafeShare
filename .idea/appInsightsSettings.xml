@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.safeshare" />
+                  <option name="mobileSdkAppId" value="1:794652040097:android:1fdf00547b726f33fd89e0" />
+                  <option name="projectId" value="safeshare-f2243" />
+                  <option name="projectNumber" value="794652040097" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
