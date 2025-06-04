@@ -1,5 +1,6 @@
 package com.example.safeshare.ui.screens.main
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
@@ -40,7 +41,7 @@ fun MainScreen(
     mainViewModel: MainViewModel
 ) {
     val navController = rememberNavController()
-    val drawerState = rememberDrawerState(DrawerValue.Open)
+    val drawerState = rememberDrawerState(DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
     ModalNavigationDrawer(
@@ -106,7 +107,7 @@ fun MainScreen(
                 NavHost(
                     navController = navController,
                     startDestination = MainScreens.Upload.name,
-                    modifier = Modifier.padding(innerPadding)
+                    modifier = Modifier.padding(innerPadding).fillMaxSize()
                 ) {
                     composable(route = MainScreens.Upload.name) { UploadScreen() }
                     composable(route = MainScreens.History.name) { HistoryScreen() }
