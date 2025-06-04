@@ -93,10 +93,7 @@ fun SignUpScreen(
         Spacer(modifier = Modifier.height(dimensionResource(R.dimen.medium_spacer_height)))
         Button(
             onClick = {
-                viewModel.emailSignUp(
-                    email = viewModel.email,
-                    password = viewModel.password
-                )
+                viewModel.emailSignUp()
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -161,20 +158,20 @@ fun SignUpScreen(
     }
 }
 
-@Composable
-@VerticalScreenPreview
-fun SignUpScreenVertical() {
-    SignUpScreen(
-        navToLogin = {},
-        viewModel = SignUpViewModel()
-    )
-}
-
-@Composable
-@HorizontalScreenPreview
-fun SignUpScreenHorzontal() {
-    SignUpScreen(
-        navToLogin = {},
-        viewModel = SignUpViewModel()
-    )
-}
+//@Composable
+//@VerticalScreenPreview
+//fun SignUpScreenVertical() {
+//    SignUpScreen(
+//        navToLogin = {},
+//        viewModel = SignUpViewModel()
+//    )
+//}
+//
+//@Composable
+//@HorizontalScreenPreview
+//fun SignUpScreenHorzontal() {
+//    SignUpScreen(
+//        navToLogin = {},
+//        viewModel = SignUpViewModel()
+//    )
+//}

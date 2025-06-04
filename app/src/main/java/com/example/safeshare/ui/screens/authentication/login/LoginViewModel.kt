@@ -68,8 +68,13 @@ class LoginViewModel @Inject constructor(
         _screenState.value = ScreenState.Loading()
         viewModelScope.launch {
             _screenState.value = try {
-                // TODO: perform authentication
-                ScreenState.Loaded("Login successfully")
+                val result =
+                    authRepository.signInWithEmailAndPassword(email = email, password = password)
+                if (result?.user != null) {
+                    ScreenState.Loaded("Login successfully")
+                } else {
+                    ScreenState.Error("Failed to Login!")
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
                 ScreenState.Error("Unable to Login. Something went wrong!")
@@ -88,7 +93,7 @@ class LoginViewModel @Inject constructor(
                     ScreenState.Error("Failed to get ID token")
                 } else {
                     val authResult = authRepository.signInWithGoogle(idToken = idToken)
-                    if (authResult.user != null) {
+                    if (authResult?.user != null) {
                         ScreenState.Loaded("Google Signed successfully")
                     } else {
                         ScreenState.Error("Google Sign-In failed!")

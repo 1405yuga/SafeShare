@@ -9,8 +9,16 @@ import javax.inject.Singleton
 
 @Singleton
 class AuthRepository @Inject constructor(private val firebaseAuth: FirebaseAuth) {
-    suspend fun signInWithGoogle(idToken: String): AuthResult {
+    suspend fun signInWithGoogle(idToken: String): AuthResult? {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         return firebaseAuth.signInWithCredential(credential).await()
+    }
+
+    suspend fun signInWithEmailAndPassword(email: String, password: String): AuthResult? {
+        return firebaseAuth.signInWithEmailAndPassword(email, password).await()
+    }
+
+    suspend fun createAccountWithEmailAndPassword(email: String, password: String): AuthResult? {
+        return firebaseAuth.createUserWithEmailAndPassword(email, password).await()
     }
 }

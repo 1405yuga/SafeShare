@@ -5,13 +5,18 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.safeshare.network.AuthRepository
 import com.example.safeshare.utils.input_validators.AuthInputValidators
 import com.example.safeshare.utils.screen_state.ScreenState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SignUpViewModel : ViewModel() {
+@HiltViewModel
+class SignUpViewModel @Inject constructor(private val authRepository: AuthRepository) :
+    ViewModel() {
     private val _screenState = MutableStateFlow<ScreenState<String>>(ScreenState.PreLoad())
     val screenState: StateFlow<ScreenState<String>> = _screenState
 
@@ -69,13 +74,21 @@ class SignUpViewModel : ViewModel() {
         return emailError.isBlank() and passwordError.isBlank() and confirmPasswordError.isBlank()
     }
 
-    fun emailSignUp(email: String, password: String) {
+    fun emailSignUp() {
         if (!inputValidators()) return
         _screenState.value = ScreenState.Loading()
         viewModelScope.launch {
             _screenState.value = try {
                 // TODO: signUp
-                ScreenState.Loaded("Account created! Check your email and verify it.")
+                val result = authRepository.createAccountWithEmailAndPassword(
+                    email = this@SignUpViewModel.email,
+                    password = this@SignUpViewModel.password
+                )
+                if (result?.user != null) {
+                    ScreenState.Loaded("Account created!")
+                } else {
+                    ScreenState.Error("Failed to create user using email and password!")
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
                 ScreenState.Error("Unable to SignUp. Something went wrong!")
