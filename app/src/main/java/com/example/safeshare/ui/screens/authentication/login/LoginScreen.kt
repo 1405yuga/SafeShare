@@ -1,6 +1,9 @@
 package com.example.safeshare.ui.screens.authentication.login
 
+import android.app.Activity
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -32,8 +35,6 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import com.example.safeshare.R
-import com.example.safeshare.utils.annotations.HorizontalScreenPreview
-import com.example.safeshare.utils.annotations.VerticalScreenPreview
 import com.example.safeshare.utils.composables.ShowAndHidePasswordTextField
 import com.example.safeshare.utils.composables.TextFieldWithErrorText
 import com.example.safeshare.utils.screen_state.ScreenState
@@ -47,6 +48,13 @@ fun LoginScreen(
 ) {
     val screenState by viewModel.screenState.collectAsState()
     val currentContext = LocalContext.current
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            viewModel.handleGoogleSignInResult(result.data)
+        }
+    }
 
     Column(
         modifier = modifier
@@ -119,6 +127,8 @@ fun LoginScreen(
         OutlinedButton(
             onClick = {
                 // TODO: google login
+                val intent = viewModel.getGoogleSignInIntent()
+                launcher.launch(intent)
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -175,22 +185,27 @@ fun LoginScreen(
     }
 }
 
-@VerticalScreenPreview
-@Composable
-fun LoginScreenVertical() {
-    LoginScreen(
-        onLoginClick = {},
-        onSignUpClick = {},
-        viewModel = LoginViewModel()
-    )
-}
+//@VerticalScreenPreview
+//@Composable
+//fun LoginScreenVertical() {
+//    LoginScreen(
+//        onLoginClick = {},
+//        onSignUpClick = {},
+//        viewModel = LoginViewModel(
+//            authRepository = AuthRepository(
+//                firebaseAuth = TODO()
+//            ),
+//            context = TODO()
+//        )
+//    )
+//}
 
-@HorizontalScreenPreview
-@Composable
-fun LoginScreenHorizontal() {
-    LoginScreen(
-        onLoginClick = {},
-        onSignUpClick = {},
-        viewModel = LoginViewModel()
-    )
-}
+//@HorizontalScreenPreview
+//@Composable
+//fun LoginScreenHorizontal() {
+//    LoginScreen(
+//        onLoginClick = {},
+//        onSignUpClick = {},
+//        viewModel = LoginViewModel()
+//    )
+//}

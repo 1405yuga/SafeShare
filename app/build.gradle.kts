@@ -1,4 +1,4 @@
-import org.gradle.kotlin.dsl.implementation
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
@@ -22,7 +22,21 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
+    defaultConfig {
+        val properties = Properties()
+            .apply { load(rootProject.file("local.properties").inputStream()) }
 
+        fun addStringFields(name: String) {
+            val webClientId = properties.getProperty(name)!!
+            buildConfigField(
+                type = String::class.simpleName!!,
+                name = name,
+                value = "\"$webClientId\""
+            )
+        }
+        addStringFields(name = "WEB_CLIENT")
+
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -41,6 +55,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -75,5 +90,5 @@ dependencies {
     ksp("com.google.dagger:hilt-compiler:2.51.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
-    implementation ("com.google.android.gms:play-services-auth:21.3.0")
+    implementation("com.google.android.gms:play-services-auth:21.3.0")
 }

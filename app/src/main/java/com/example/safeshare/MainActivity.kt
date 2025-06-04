@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,7 +23,9 @@ import com.example.safeshare.ui.screens.loader.LoaderScreen
 import com.example.safeshare.ui.screens.main.MainScreen
 import com.example.safeshare.ui.theme.SafeShareTheme
 import com.example.safeshare.utils.extension_functions.navigateAndClearPrevious
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +59,7 @@ fun SafeSecureApp(modifier: Modifier = Modifier) {
             LoginScreen(
                 onLoginClick = { navController.navigateAndClearPrevious(Screen.Loader.name) },
                 onSignUpClick = { navController.navigateAndClearPrevious(Screen.SignUp.name) },
-                viewModel = viewModel(),
+                viewModel = hiltViewModel(),
                 modifier = modifier
             )
         }
