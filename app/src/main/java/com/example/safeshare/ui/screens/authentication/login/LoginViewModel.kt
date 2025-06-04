@@ -11,7 +11,7 @@ import com.example.safeshare.BuildConfig
 import com.example.safeshare.network.AuthRepository
 import com.example.safeshare.utils.input_validators.AuthInputValidators
 import com.example.safeshare.utils.screen_state.ScreenState
-import com.google.android.gms.auth.api.signin.GoogleSignIn
+import  com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import dagger.hilt.android.lifecycle.HiltViewModel
