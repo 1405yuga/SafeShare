@@ -1,7 +1,12 @@
+import org.gradle.kotlin.dsl.implementation
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.gms.google.services)
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -61,4 +66,10 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
 //  navigation----------------------------------------------
     implementation(libs.androidx.navigation.compose)
+//    hilt----------------------------------------------------
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    ksp("com.google.dagger:hilt-compiler:2.51.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+    implementation ("com.google.android.gms:play-services-auth:21.3.0")
 }
