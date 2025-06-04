@@ -28,8 +28,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
 import com.example.safeshare.R
-import com.example.safeshare.utils.annotations.HorizontalScreenPreview
-import com.example.safeshare.utils.annotations.VerticalScreenPreview
 import com.example.safeshare.utils.composables.ShowAndHidePasswordTextField
 import com.example.safeshare.utils.composables.TextFieldWithErrorText
 import com.example.safeshare.utils.screen_state.ScreenState
@@ -166,12 +164,16 @@ fun SignUpScreen(
 //        viewModel = SignUpViewModel()
 //    )
 //}
-//
+
 //@Composable
 //@HorizontalScreenPreview
 //fun SignUpScreenHorzontal() {
 //    SignUpScreen(
 //        navToLogin = {},
-//        viewModel = SignUpViewModel()
+//        viewModel = SignUpViewModel(
+//            authRepository = AuthRepository(
+//                firebaseAuth = FirebaseModule.mock
+//            )
+//        )
 //    )
 //}
