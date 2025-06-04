@@ -4,14 +4,24 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.safeshare.ui.screens.authentication.login.LoginScreen
+import com.example.safeshare.ui.screens.authentication.signup.SignUpScreen
+import com.example.safeshare.ui.screens.loader.LoaderScreen
+import com.example.safeshare.ui.screens.main.MainScreen
 import com.example.safeshare.ui.theme.SafeShareTheme
+import com.example.safeshare.utils.extension_functions.navigateAndClearPrevious
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,10 +30,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             SafeShareTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    SafeSecureApp(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -31,17 +38,41 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
+fun SafeSecureApp(modifier: Modifier = Modifier) {
+    val navController = rememberNavController()
+
+    NavHost(
+        navController = navController,
+        startDestination = Screen.Loader.name,
+        modifier = modifier.windowInsetsPadding(WindowInsets.systemBars)
+    ) {
+        composable(Screen.Loader.name) {
+            LoaderScreen(
+                toLoginScreen = { navController.navigateAndClearPrevious(Screen.Login.name) },
+                toMainScreen = { navController.navigateAndClearPrevious(Screen.MainScreen.name) }
+            )
+        }
+        composable(Screen.Login.name) {
+            LoginScreen(
+                onLoginClick = { navController.navigateAndClearPrevious(Screen.Loader.name) },
+                onSignUpClick = { navController.navigateAndClearPrevious(Screen.SignUp.name) },
+                viewModel = viewModel(),
+                modifier = modifier
+            )
+        }
+        composable(Screen.SignUp.name) {
+            SignUpScreen(
+                navToLogin = { navController.navigateAndClearPrevious(Screen.Login.name) },
+                modifier = modifier,
+                viewModel = viewModel()
+            )
+        }
+        composable(Screen.MainScreen.name) {
+            MainScreen()
+        }
+    }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SafeShareTheme {
-        Greeting("Android")
-    }
+enum class Screen {
+    Login, SignUp, Loader, MainScreen
 }
